@@ -18,7 +18,7 @@ const timeStamp = now.toLocaleTimeString('sv-SE').replace(/:/g, '-'); // pl. 12-
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: true, 
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
