@@ -11,6 +11,10 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+const now = new Date();
+const dateFolder = now.toISOString().split('T')[0]; // pl. 2025-05-16
+const timeStamp = now.toLocaleTimeString('sv-SE').replace(/:/g, '-'); // pl. 12-24-36
+// eredmény: '2025-05-05_12-12-12'
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -22,7 +26,10 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+ reporter: [
+    ['html', { outputFolder: `playwright-report/html/${dateFolder}/result-${dateFolder}T${timeStamp}` }],
+    ['json', { outputFile: `playwright-report/json/${dateFolder}/result-${timeStamp}.json` }],
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
