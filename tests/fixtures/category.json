@@ -1,0 +1,26 @@
+{
+    "categoryListLength": 7,
+    "categoryNames": [
+        {
+            "name": "Books"
+        },
+        {
+            "name": "Computers"
+        },
+        {
+            "name": "Electronics"
+        },
+        {
+            "name": "Apparel & Shoes"
+        },
+        {
+            "name": "Digital downloads"
+        },
+        {
+            "name": "Jewelry"
+        },
+        {
+            "name": "Gift Cards"
+        }
+    ]
+}

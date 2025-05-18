@@ -1,9 +1,9 @@
-import { test, expect } from '@playwright/test';
-import { login } from '../utils/auth';
-import environment from '../config/environment.json'
-import { validUser } from '../utils/interfaces';
-
+import { test } from '@playwright/test';
+import { validUser } from '../utils/user';
+import { callLoginUrl, loginProcess, loginVerification } from '../pages/loginPage'
 
 test('Basic login function', async ({ page }) => {
-    await login(page, `${environment.baseUrl}/login`, validUser)
+    await callLoginUrl(page)
+    await loginProcess(page, validUser)
+    await loginVerification(page, validUser)
 })
