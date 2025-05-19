@@ -22,5 +22,65 @@
         {
             "name": "Gift Cards"
         }
+    ],
+    "categorySortoptions": [
+        {
+            "orderBy": 5,
+            "name": "Name: A to Z",
+            "validate": "(a, b) => a.localeCompare(b) < 0"
+        },
+        {
+            "orderBy": 6,
+            "name": "Name: Z to A",
+            "validate": "(a, b) => a.localeCompare(b) > 0"
+        },
+        {
+            "orderBy": 10,
+            "name": "Price: Low to High",
+            "validate": "(a, b) => parseFloat(a.replace(/[^\\d.]/g, '')) < parseFloat(b.replace(/[^\\d.]/g, ''))"
+        },
+        {
+            "orderBy": 11,
+            "name": "Price: High to Low",
+            "validate": "(a, b) => parseFloat(a.replace(/[^\\d.]/g, '')) > parseFloat(b.replace(/[^\\d.]/g, ''))"
+        }
+    ],
+    "categoryUrl": [
+        {
+            "name": "books",
+            "url": "books"
+        },
+        {
+            "name": "desktops",
+            "url": "desktops"
+        },
+        {
+            "name": "notebooks",
+            "url": "notebooks"
+        },
+        {
+            "name": "accessories",
+            "url": "accessories"
+        },
+        {
+            "name": "cameraPhoto",
+            "url": "camera-photo"
+        },
+        {
+            "name": "cellPhones",
+            "url": "cell-phones"
+        },
+        {
+            "name": "apparelShoes",
+            "url": "apparel-shoes"
+        },
+        {
+            "name": "digitalDownloads",
+            "url": "digital-downloads"
+        },
+        {
+            "name": "jewelry",
+            "url": "jewelry"
+        }
     ]
 }

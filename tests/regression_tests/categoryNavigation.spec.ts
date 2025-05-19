@@ -3,7 +3,8 @@ import { callUrl } from "../utils/url";
 import category from "../fixtures/category.json"
 import { CategoryNavigationPage, clickAllMenuItems } from "../pages/categoryNavigationPage";
 
-test('Verify category list', async ({ page }) => {
+//Verify the names in the category list
+test('Category List: Verify category list', async ({ page }) => {
     const categoryPage = new CategoryNavigationPage(page)
     await callUrl(page)
 
@@ -12,6 +13,7 @@ test('Verify category list', async ({ page }) => {
 
     //verify length
     expect((await items).length).toBe(category.categoryListLength);
+    console.log("Expected category number: ", category.categoryListLength, "Actual: ", (await items).length)
 
     //verify names
     const allMenuItemNameMatch = (await items).every((item, index) => {
@@ -23,8 +25,8 @@ test('Verify category list', async ({ page }) => {
 })
 
 
-//Open and Verify menu items
-test('openCategoryWithSubmenus', async ({ page }) => {
+//Open and Verify menu items (titel and URL)
+test('Category List: Verify URL And Titel', async ({ page }) => {
     await callUrl(page);
     await clickAllMenuItems(page);
 });

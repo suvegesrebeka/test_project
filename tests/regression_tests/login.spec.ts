@@ -11,7 +11,7 @@ test.afterEach(async ({ page }, testInfo) => {
     await logout(page)
 });
 
-test('Basic login function', async ({ page }) => {
+test('Login: Basic login function', async ({ page }) => {
     await callLoginUrl(page)
     await loginProcess(page, validUser)
     await loginVerification(page, validUser)
@@ -32,7 +32,7 @@ test('Basic login function', async ({ page }) => {
 //     console.log(`Login as '${validUser.email}' successful.`);
 // })
 
-test('Negative login test', async ({ page }) => {
+test('Login: Negative login test', async ({ page }) => {
     await callLoginUrl(page)
     await loginProcess(page, invalidUser)
 

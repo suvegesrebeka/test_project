@@ -1,4 +1,6 @@
-import { Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
+import environment from '../fixtures/environment.json'
+
 
 
 export class CategoryNavigationPage {
@@ -15,29 +17,26 @@ export class CategoryNavigationPage {
 
 }
 
-async function verifyAndClick(page: Page, link: Locator) {
-    const text = (await link.textContent())?.trim() || "";
-    const href = (await link.getAttribute('href')) || "";
-    const expectedUrl = `https://demowebshop.tricentis.com${href}`;
+//Click and verify categories
+async function verifyAndClick(page: Page, item: Locator) {
+    const text = (await item.textContent())?.trim() || "";
+    const href = (await item.getAttribute('href')) || "";
+    const expectedUrl = `${environment.baseUrl}${href}`;
 
-    console.log(`Clicking: ${text} - Expected URL: ${expectedUrl}`);
-
-    await link.click();
+    await item.click();
 
     //verifikation - url
     const actualUrl = page.url();
-    if (actualUrl !== expectedUrl) {
-        throw new Error(`Error: Expected URL: ${expectedUrl}, but got: ${actualUrl}`);
-    }
+    expect(actualUrl).toBe(expectedUrl)
 
     //verification - titel
-    const pageTitle = (await page.locator('h1').textContent())?.trim() || "";
-    if (pageTitle !== text) {
-        throw new Error(`Error: Expected title: "${text}", but got: "${pageTitle}"`);
-    }
+    const pageTitle = (await page.locator('h1'));
+    await expect(pageTitle).toHaveText(text);
+
 
 }
 
+//Iteration through category menu items
 export async function clickAllMenuItems(page: Page) {
     const categoryPage = new CategoryNavigationPage(page)
     const locator = await categoryPage.getMenuItems();
@@ -55,7 +54,6 @@ export async function clickAllMenuItems(page: Page) {
             await page.goBack();
         }
 
-        //back to the prev. page
         await page.goBack();
     }
 }
