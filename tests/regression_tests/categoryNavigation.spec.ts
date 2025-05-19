@@ -1,6 +1,6 @@
 import test, { expect, Locator, Page } from "@playwright/test";
 import { callUrl } from "../utils/url";
-import category from "../fixtures/category.json"
+import category from "../data/category.json"
 import { CategoryNavigationPage, clickAllMenuItems } from "../pages/categoryNavigationPage";
 
 //Verify the names in the category list

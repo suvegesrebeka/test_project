@@ -1,5 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
-import environment from '../fixtures/environment.json'
+import environment from '../data/environment.json'
 
 
 

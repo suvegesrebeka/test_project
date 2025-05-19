@@ -1,6 +1,6 @@
 import { expect, Page } from '@playwright/test';
 import { User } from '../utils/user';
-import environment from '../fixtures/environment.json'
+import environment from '../data/environment.json'
 
 //Call the login URL
 export async function callLoginUrl(page: Page) {
