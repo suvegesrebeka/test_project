@@ -12,11 +12,8 @@ test('Category table - Visiblity of table', async ({ page }) => {
 //Verify the names of the sorting list
 test('Category table - Verification of sort list names ', async ({ page }) => {
     await callUrl(page, "books")
-    const sortInput = await page.locator('#products-orderby');
+    const sortInput = page.locator('#products-orderby');
     const count = await sortInput.locator('option').count();
-    console.log(count);
-
-
 
     for (let i = 1; i < count; i++) {
         const option = sortInput.locator('option').nth(i)
@@ -26,7 +23,7 @@ test('Category table - Verification of sort list names ', async ({ page }) => {
 
 })
 
-//Verify the functionality of sorting - Name A-Z & Z-A
+//Verify the functionality of sorting by name
 test.describe('Category table: Sorting test - Name A-Z and Z-A', () => {
     test.beforeEach(async ({ page }) => {
     });
@@ -60,7 +57,7 @@ test.describe('Category table: Sorting test - Name A-Z and Z-A', () => {
 });
 
 
-//!Error on the Page! Verify the functionality of sorting - Low to High & High to Low 
+//!Error on the Page! Verify the functionality of sorting by prices
 test.describe('Books sorting tests - Price Low to High and High to Low', () => {
 
     test('should sort books correctly by Price: Low to High', async ({ page }) => {
@@ -77,7 +74,7 @@ test.describe('Books sorting tests - Price Low to High and High to Low', () => {
                 pricesRaw.push(text.trim());
             }
 
-            console.log('Prices from page (string):', pricesRaw);
+            // console.log('Prices from page (string):', pricesRaw);
 
             // parser string->float
             const pricesNumeric = pricesRaw.map(p => {
@@ -87,9 +84,8 @@ test.describe('Books sorting tests - Price Low to High and High to Low', () => {
 
 
             const sortedPrices = [...pricesNumeric].sort((a, b) => a - b);
-            const sortedPricesFormatted = sortedPrices.map(p => p.toFixed(2));
 
-            console.log('Expected sorted prices (Low to High):', sortedPricesFormatted);
+            // console.log('Expected sorted prices (Low to High):', sortedPrices,pricesNumeric);
 
             expect(pricesNumeric).toEqual(sortedPrices);
         }
@@ -109,7 +105,7 @@ test.describe('Books sorting tests - Price Low to High and High to Low', () => {
                 pricesRaw.push(text.trim());
             }
 
-            console.log('Prices from page (string):', pricesRaw);
+            // console.log('Prices from page (string):', pricesRaw);
 
             //parser string->float
             const pricesNumeric = pricesRaw.map(p => {
@@ -119,9 +115,8 @@ test.describe('Books sorting tests - Price Low to High and High to Low', () => {
 
 
             const sortedPrices = [...pricesNumeric].sort((a, b) => b - a);
-            const sortedPricesFormatted = sortedPrices.map(p => p.toFixed(2));
 
-            console.log('Expected sorted prices (high to low, formatted):', sortedPrices, pricesNumeric);
+            // console.log('Expected sorted prices (high to low):', sortedPrices, pricesNumeric);
 
             expect(pricesNumeric).toEqual(sortedPrices);
 

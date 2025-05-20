@@ -17,20 +17,20 @@ test('Login: Basic login function', async ({ page }) => {
     await loginVerification(page, validUser)
 })
 
-// test('Login with remember function', async ({ page }) => {
-//     await callLoginUrl(page)
-//     await loginProcess(page, validUser)
+test.skip('Login with remember function', async ({ page }) => {
+    await callLoginUrl(page)
+    await loginProcess(page, validUser)
 
-//     await page.check("#RememberMe")
+    await page.check("#RememberMe")
 
-// const isChecked = await page.isChecked("#RememberMe");
-// expect(isChecked).toBe(true);
+    const isChecked = await page.isChecked("#RememberMe");
+    expect(isChecked).toBe(true);
 
-//     await page.getByRole('button', { name: 'Log in' }).click();
+    await page.getByRole('button', { name: 'Log in' }).click();
 
-//     await page.waitForSelector('a[href="/customer/info"]');
-//     console.log(`Login as '${validUser.email}' successful.`);
-// })
+    await page.waitForSelector('a[href="/customer/info"]');
+    console.log(`Login as '${validUser.email}' successful.`);
+})
 
 test('Login: Negative login test', async ({ page }) => {
     await callLoginUrl(page)

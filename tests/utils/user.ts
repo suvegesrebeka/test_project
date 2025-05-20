@@ -1,4 +1,4 @@
-import user from '../fixtures/user.json'
+import user from '../data/user.json'
 
 export interface User {
     email: string,
