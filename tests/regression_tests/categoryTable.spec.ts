@@ -30,7 +30,8 @@ test.describe('Category table: Sorting test - Name A-Z and Z-A', () => {
 
     test('Name: A to Z', async ({ page }) => {
         for (let categoryUrl of category.categoryUrl) {
-            await page.goto(`https://demowebshop.tricentis.com/${categoryUrl.url}?orderby=${category.categorySortoptions[0].orderBy}`);
+            await callUrl(page, `${categoryUrl.url}?orderby=${category.categorySortoptions[1].orderBy}`)
+
 
 
             const titles = await page.locator('.product-item .product-title a').allInnerTexts();
@@ -43,7 +44,8 @@ test.describe('Category table: Sorting test - Name A-Z and Z-A', () => {
 
     test('Name: Z to A', async ({ page }) => {
         for (let categoryUrl of category.categoryUrl) {
-            await page.goto(`https://demowebshop.tricentis.com/${categoryUrl.url}?orderby=${category.categorySortoptions[1].orderBy}`);
+            await callUrl(page, `${categoryUrl.url}?orderby=${category.categorySortoptions[2].orderBy}`)
+
 
 
             const titles = await page.locator('.product-item .product-title a').allInnerTexts();
@@ -62,12 +64,14 @@ test.describe('Books sorting tests - Price Low to High and High to Low', () => {
 
     test('should sort books correctly by Price: Low to High', async ({ page }) => {
         for (let categoryUrl of category.categoryUrl) {
-            await page.goto(`https://demowebshop.tricentis.com/${categoryUrl.url}?orderby=${category.categorySortoptions[2].orderBy}`);
+            await callUrl(page, `${categoryUrl.url}?orderby=${category.categorySortoptions[3].orderBy}`)
+
+
 
             const priceLocators = page.locator('.product-item .prices .actual-price');
             const count = await priceLocators.count();
 
-            //array of prices
+            //array of prices ["12.99", "from 5.00", "20.00"]
             const pricesRaw: string[] = [];
             for (let i = 0; i < count; i++) {
                 const text = await priceLocators.nth(i).textContent() || '';
@@ -76,7 +80,7 @@ test.describe('Books sorting tests - Price Low to High and High to Low', () => {
 
             // console.log('Prices from page (string):', pricesRaw);
 
-            // parser string->float
+            //parser  number without string [ 12.99 ]
             const pricesNumeric = pricesRaw.map(p => {
                 const match = p.match(/(\d+(\.\d+)?)/);
                 return match ? parseFloat(match[0]) : null;
@@ -93,12 +97,13 @@ test.describe('Books sorting tests - Price Low to High and High to Low', () => {
 
     test('should sort books correctly by Price: High to Low', async ({ page }) => {
         for (let categoryUrl of category.categoryUrl) {
-            await page.goto(`https://demowebshop.tricentis.com/${categoryUrl.url}?orderby=${category.categorySortoptions[3].orderBy}`);
+            await callUrl(page, `${categoryUrl.url}?orderby=${category.categorySortoptions[4].orderBy}`)
+
 
             const priceLocators = page.locator('.product-item .prices .actual-price');
             const count = await priceLocators.count();
 
-            //array of prices
+            //array of prices ["12.99", "from 5.00", "20.00"]
             const pricesRaw: string[] = [];
             for (let i = 0; i < count; i++) {
                 const text = await priceLocators.nth(i).textContent() || '';
@@ -107,7 +112,7 @@ test.describe('Books sorting tests - Price Low to High and High to Low', () => {
 
             // console.log('Prices from page (string):', pricesRaw);
 
-            //parser string->float
+            //parser  number without string [ 12.99 ]
             const pricesNumeric = pricesRaw.map(p => {
                 const match = p.match(/(\d+(\.\d+)?)/);
                 return match ? parseFloat(match[0]) : null;
@@ -116,7 +121,8 @@ test.describe('Books sorting tests - Price Low to High and High to Low', () => {
 
             const sortedPrices = [...pricesNumeric].sort((a, b) => b - a);
 
-            // console.log('Expected sorted prices (high to low):', sortedPrices, pricesNumeric);
+            console.log('Expected sorted prices (high to low):', sortedPrices, pricesNumeric);
+
 
             expect(pricesNumeric).toEqual(sortedPrices);
 

@@ -1,0 +1,8 @@
+{
+  "apiKey": "reqres-free-v1",
+  "url": "https://reqres.in/api/user",
+  "payload": {
+    "name": "Rebeka",
+    "job": "QA"
+  }
+}

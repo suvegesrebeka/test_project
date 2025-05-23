@@ -2,27 +2,36 @@ import { expect, Page } from '@playwright/test';
 import { User } from '../utils/user';
 import environment from '../data/environment.json'
 
-//Call the login URL
-export async function callLoginUrl(page: Page) {
-    await page.goto(`${environment.baseUrl}/${environment.login}`);
-}
+export class LoginPage {
+    private page: Page;
 
-//Fill and submit the login form  
-export async function loginProcess(page: Page, user: User) {
-    await page.fill('#Email', user.email);
-    await page.fill('#Password', user.password);
+    constructor(page: Page) {
+        this.page = page;
+    }
+    //Call the login URL
+    async callLoginUrl() {
+        await this.page.goto(`${environment.baseUrl}/${environment.login}`);
+    }
 
-    await page.getByRole('button', { name: 'Log in' }).click();
-}
+    //Fill and submit the login form  
+    async loginProcess(user: User) {
+        await this.page.fill('#Email', user.email);
+        await this.page.fill('#Password', user.password);
 
-//Verification of the login process
-export async function loginVerification(page: Page, user) {
-    await page.waitForSelector('a[href="/customer/info"]');
-    await expect(page.getByRole('link', { name: 'barkavirag@gmail.com' })).toHaveText(user.email)
-}
+        await this.page.getByRole('button', { name: 'Log in' }).click();
+    }
 
-//Logout
-export async function logout(page: Page) {
-    await expect(page.getByRole('link', { name: 'Log out' })).toBeVisible()
-    await page.getByRole('link', { name: 'Log out' }).click();
+    //Verification of the login
+    async loginVerification(user) {
+        await this.page.waitForSelector('a[href="/customer/info"]');
+        await expect(this.page.getByRole('link', { name: `${user.email}` })).toHaveText(user.email)
+    }
+
+    //positive login process
+    async login(user) {
+        await this.callLoginUrl()
+        await this.loginProcess(user)
+        await this.loginVerification(user)
+    }
+
 }
